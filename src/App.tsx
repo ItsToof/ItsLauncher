@@ -87,14 +87,6 @@ function WindowControls() {
   );
 }
 
-const EMBERS = Array.from({ length: 14 }, (_, i) => ({
-  "--x": `${(i * 37.7 + 6) % 96}%`,
-  "--s": `${3 + (i % 3)}px`,
-  "--t": `${18 + ((i * 5) % 16)}s`,
-  "--d": `-${(i * 7.3) % 24}s`,
-  "--dx": `${((i * 13) % 50) - 25}px`,
-}) as React.CSSProperties);
-
 export default function App() {
   const [settings, setSettings] = useSettings();
   setLang(settings.lang);
@@ -180,39 +172,12 @@ export default function App() {
       root.dataset.theme = theme;
       root.dataset.accent = settings.accent;
       root.dataset.motion = settings.motion ? "on" : "off";
-      root.dataset.glow = settings.glow ? "on" : "off";
+      root.style.setProperty("--radius", `${settings.radius}px`);
     };
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
-  }, [settings.theme, settings.accent, settings.motion, settings.glow]);
-
-  useEffect(() => {
-    const down = (e: PointerEvent) => {
-      const b = (e.target as HTMLElement).closest?.(".btn") as HTMLButtonElement | null;
-      if (!b || b.disabled) return;
-      const r = b.getBoundingClientRect();
-      const size = Math.max(r.width, r.height) * 2;
-      const s = document.createElement("span");
-      s.className = "ripple";
-      s.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size / 2}px;top:${e.clientY - r.top - size / 2}px`;
-      b.appendChild(s);
-      setTimeout(() => s.remove(), 650);
-    };
-    const move = (e: PointerEvent) => {
-      const c = (e.target as HTMLElement).closest?.(".card") as HTMLElement | null;
-      if (!c) return;
-      const r = c.getBoundingClientRect();
-      c.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      c.style.setProperty("--my", `${e.clientY - r.top}px`);
-    };
-    window.addEventListener("pointerdown", down);
-    window.addEventListener("pointermove", move);
-    return () => {
-      window.removeEventListener("pointerdown", down);
-      window.removeEventListener("pointermove", move);
-    };
-  }, []);
+  }, [settings.theme, settings.accent, settings.motion, settings.radius]);
 
   useEffect(() => {
     if (!activityOpen) return;
@@ -588,7 +553,6 @@ export default function App() {
         {profMounted && <AccountMenu closing={profClosing} info={accounts} onSelect={selectAcc} onRemove={removeAcc} onClose={() => setProfileOpen(false)} onOffline={addOffline} onEly={addEly} onMs={startMs} />}
 
         <main className="content">
-          <div className="px-fx" aria-hidden>{EMBERS.map((s, i) => <i key={i} style={s} />)}</div>
           <div className={"page " + dir} key={page}>
             {page === "home" && <Home featured={featured} popular={popular} page={popPage} pages={popPages} onPage={openPopPage} instances={instances} busy={working !== null} onInstall={installLatest} onPick={openPack} />}
             {page === "library" && (

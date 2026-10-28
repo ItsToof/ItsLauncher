@@ -1,5 +1,5 @@
 import type { GameSettings } from "./types";
-import { Switch } from "./ui";
+import { Range, Switch } from "./ui";
 import { screenLimit } from "./settings";
 import { t } from "./i18n";
 
@@ -20,7 +20,7 @@ export function MemoryForm({ value, onChange }: Props) {
           <input type="number" min={512} step={256} value={value.maxMem} onChange={mem("maxMem")} />
         </label>
       </div>
-      <input type="range" min={512} max={16384} step={256} value={Math.max(512, value.maxMem)} onChange={mem("maxMem")} />
+      <Range min={512} max={16384} step={256} value={Math.max(512, value.maxMem)} onChange={(v) => onChange({ maxMem: v })} />
       <label className="field" style={{ marginTop: 14 }}>
         {t("Аргументы JVM")}
         <textarea rows={3} value={value.jvmArgs} onChange={(e) => onChange({ jvmArgs: e.target.value })} placeholder="-Dkey=value" spellCheck={false} />

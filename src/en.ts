@@ -1,6 +1,10 @@
 import { registerEn } from "./i18n";
 
 registerEn({
+  "Сессия Ely.by истекла, войди в аккаунт заново": "Ely.by session expired, sign in again",
+  "Открыть папку": "Open folder",
+  "Папка сборки": "Instance folder",
+  "Папка сборки не найдена": "Instance folder not found",
   "Обновления сборки": "Modpack updates",
   "Следить за обновлениями с Modrinth": "Track updates from Modrinth",
   "Сервис Ely.by сейчас недоступен. Попробуй позже.": "Ely.by is currently unavailable. Try again later.",
@@ -90,7 +94,6 @@ registerEn({
   "Название": "Name",
   "Найти на Modrinth": "Find on Modrinth",
   "Открыть на Modrinth": "Open on Modrinth",
-  "Свечение было встроено с помощью ИИ": "The glow was built in with AI",
   "Найти сборку на Modrinth…": "Search modpacks on Modrinth…",
   "Настройки": "Settings",
   "Не поддерживается": "Not supported",
@@ -134,6 +137,9 @@ registerEn({
   "Создать": "Create",
   "Создаю…": "Creating…",
   "Сохранено: {p}": "Saved: {p}",
+  "Оформление": "Appearance",
+  "Скругление углов": "Corner radius",
+  "Язык интерфейса": "Interface language",
   "Тема": "Theme",
   "Тёмная": "Dark",
   "Удалить": "Delete",

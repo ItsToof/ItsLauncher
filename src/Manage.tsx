@@ -47,6 +47,9 @@ export function Manage({ inst, settings, versions, logs, initialTab, onClose, on
               <Icon name={x.icon} size={16} /> {t(x.label)}
             </button>
           ))}
+          <button className="manage-tab folder" onClick={() => invoke("instance_open_dir", { id: inst.id }).catch((e) => toast(String(e), "err"))}>
+            <Icon name="folder" size={16} /> {t("Папка сборки")}
+          </button>
         </div>
         <div className="manage-body" key={tab}>
           {tab === "mods" && <Content inst={inst} kind="mod" dir="mods" versions={versions} toast={toast} />}

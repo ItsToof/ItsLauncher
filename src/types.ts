@@ -1,6 +1,6 @@
 export type Page = "home" | "browse" | "library" | "games" | "settings";
-export type Theme = "system" | "light" | "dark" | "oled";
-export type Accent = "red" | "orange" | "yellow" | "lime" | "green" | "cyan" | "blue" | "indigo" | "purple" | "pink";
+export type Theme = "system" | "light" | "dark";
+export type Accent = "mono" | "red" | "orange" | "yellow" | "lime" | "green" | "cyan" | "blue" | "indigo" | "purple" | "pink";
 export type Lang = "system" | "ru" | "en";
 export type ToastFn = (text: string, kind?: "ok" | "err" | "info") => void;
 
@@ -25,8 +25,8 @@ export type InstanceSettings = Partial<GameSettings> & { override?: boolean };
 export type Settings = {
   theme: Theme;
   accent: Accent;
-  glow: boolean;
   motion: boolean;
+  radius: number;
   lang: Lang;
   clientId: string;
   game: GameSettings;

@@ -337,6 +337,10 @@ export function Switch({ checked, onChange, label, hint }: { checked: boolean; o
   );
 }
 
+export function Range({ min, max, step, value, onChange }: { min: number; max: number; step?: number; value: number; onChange: (v: number) => void }) {
+  return <input type="range" min={min} max={max} step={step} value={value} style={{ "--v": `${((value - min) / (max - min)) * 100}%` } as CSSProperties} onChange={(e) => onChange(Number(e.target.value))} />;
+}
+
 export function InstanceIcon({ inst, size = 56 }: { inst: Pick<Instance, "name" | "icon">; size?: number }) {
   const [bad, setBad] = useState(false);
   if (inst.icon && !bad) return <img className="inst-icon" style={{ width: size, height: size }} src={inst.icon} onError={() => setBad(true)} alt="" />;

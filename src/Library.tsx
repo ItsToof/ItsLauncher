@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api/core";
 import { createPortal } from "react-dom";
 import type { CSSProperties } from "react";
 import type { Instance, PackUpdate, Settings } from "./types";
@@ -96,7 +97,8 @@ export function Library({ instances, settings, running, busyId, busy, updates, o
       </div>
 
       {ctx && ctxMounted && createPortal(
-        <div className={"ctx" + (ctxClosing ? " closing" : "")} style={{ left: Math.max(4, Math.min(ctx.x, window.innerWidth - 210)), top: Math.max(4, Math.min(ctx.y, window.innerHeight - 110)) }} onMouseDown={(e) => e.stopPropagation()}>
+        <div className={"ctx" + (ctxClosing ? " closing" : "")} style={{ left: Math.max(4, Math.min(ctx.x, window.innerWidth - 210)), top: Math.max(4, Math.min(ctx.y, window.innerHeight - 150)) }} onMouseDown={(e) => e.stopPropagation()}>
+          <button onClick={() => { invoke("instance_open_dir", { id: ctx.inst.id }).catch(() => {}); setCtxOpen(false); }}><Icon name="folder" size={15} /> {t("Открыть папку")}</button>
           <button onClick={() => { onExport(ctx.inst); setCtxOpen(false); }}><Icon name="archive" size={15} /> {t("Экспорт")}</button>
           <button className="danger" onClick={() => { setDel(ctx.inst); setCtxOpen(false); }}><Icon name="trash" size={15} /> {t("Удалить")}</button>
         </div>,

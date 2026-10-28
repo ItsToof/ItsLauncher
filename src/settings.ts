@@ -22,9 +22,9 @@ export const GAME_DEFAULTS: GameSettings = {
 
 export const DEFAULTS: Settings = {
   theme: "dark",
-  accent: "blue",
-  glow: true,
+  accent: "mono",
   motion: true,
+  radius: 4,
   lang: "system",
   clientId: "",
   game: GAME_DEFAULTS,

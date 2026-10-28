@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import type { Accent, GameSettings, Lang, Settings, Theme } from "./types";
 import { GameForm } from "./GameForm";
-import { Icon, Logo, Modal, Seg, Switch } from "./ui";
+import { Icon, Logo, Modal, Range, Seg, Switch } from "./ui";
 import { claude, teddypes } from "./avatars";
 import { t } from "./i18n";
 
@@ -47,10 +47,13 @@ export function SettingsPage({ settings, patch, patchGame, work, onReset, onFull
         <div className="tab-body" key={tab}>
           {tab === "look" && <Look settings={settings} patch={patch} />}
           {tab === "language" && (
-            <section className="card section">
-              <h3>{t("Язык")}</h3>
-              <Seg<Lang> value={settings.lang} onChange={(v) => patch({ lang: v })} options={[{ value: "system", label: t("Авто") }, { value: "ru", label: "Русский" }, { value: "en", label: "English" }]} />
-            </section>
+            <>
+              <h3 className="group-title">{t("Язык")}</h3>
+              <div className="setting">
+                <span>{t("Язык интерфейса")}</span>
+                <Seg<Lang> value={settings.lang} onChange={(v) => patch({ lang: v })} options={[{ value: "system", label: t("Авто") }, { value: "ru", label: "Русский" }, { value: "en", label: "English" }]} />
+              </div>
+            </>
           )}
           {tab === "game" && <GameForm value={settings.game} onChange={patchGame} />}
           {tab === "devs" && <Devs />}
@@ -108,10 +111,10 @@ function Look({ settings, patch }: { settings: Settings; patch: (p: Partial<Sett
   const themes: { id: Theme; label: string }[] = [
     { id: "light", label: "Светлая" },
     { id: "dark", label: "Тёмная" },
-    { id: "oled", label: "OLEG" },
     { id: "system", label: "Как в системе" },
   ];
   const accents: { id: Accent; color: string }[] = [
+    { id: "mono", color: "#f4f4f5" },
     { id: "red", color: "#ff3b3b" },
     { id: "orange", color: "#ff9f43" },
     { id: "yellow", color: "#facc15" },
@@ -125,33 +128,26 @@ function Look({ settings, patch }: { settings: Settings; patch: (p: Partial<Sett
   ];
   return (
     <>
-      <section className="card section">
-        <h3>{t("Тема")}</h3>
-        <div className="themes">
-          {themes.map((x) => (
-            <button key={x.id} className={"theme-card" + (settings.theme === x.id ? " on" : "")} onClick={() => patch({ theme: x.id })}>
-              <div className={"preview sw-" + x.id}><i /><i /><i /></div>
-              {t(x.label)}
-            </button>
-          ))}
-        </div>
-      </section>
-      <section className="card section">
-        <h3>{t("Акцентный цвет")}</h3>
+      <h3 className="group-title">{t("Оформление")}</h3>
+      <div className="setting">
+        <span>{t("Тема")}</span>
+        <Seg<Theme> value={settings.theme} onChange={(v) => patch({ theme: v })} options={themes.map((x) => ({ value: x.id, label: t(x.label) }))} />
+      </div>
+      <div className="setting">
+        <span>{t("Акцентный цвет")}</span>
         <div className="accents">
           {accents.map((a) => (
-            <button key={a.id} className={"swatch" + (settings.accent === a.id ? " on" : "")} style={{ background: a.color }} onClick={() => patch({ accent: a.id })}>
-              {settings.accent === a.id && <Icon name="check" size={18} />}
-            </button>
+            <button key={a.id} className={"swatch" + (settings.accent === a.id ? " on" : "")} style={{ background: a.color }} onClick={() => patch({ accent: a.id })} />
           ))}
         </div>
-      </section>
-      <section className="card section">
-        <h3>{t("Эффекты")}</h3>
-        <Switch checked={settings.glow} onChange={(v) => patch({ glow: v })} label={t("Свечение")} />
-        <div className="muted small" style={{ margin: "-2px 0 8px" }}>{t("Свечение было встроено с помощью ИИ")}</div>
+      </div>
+      <div className="setting">
+        <span>{t("Скругление углов")}</span>
+        <Range min={0} max={24} value={settings.radius} onChange={(radius) => patch({ radius })} />
+      </div>
+      <div className="setting">
         <Switch checked={settings.motion} onChange={(v) => patch({ motion: v })} label={t("Анимации интерфейса")} />
-      </section>
+      </div>
     </>
   );
 }

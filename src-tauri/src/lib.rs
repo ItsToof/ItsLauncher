@@ -2573,6 +2573,15 @@ async fn instance_update(id: String, rel: String, file: String, version_id: Stri
     Ok(name.to_string())
 }
 #[tauri::command]
+fn instance_open_dir(id: String) -> Result<(), String> {
+    let dir = inst_path(&id, "")?;
+    if !dir.is_dir() {
+        return Err("Папка сборки не найдена".into());
+    }
+    open_target(&s(&dir));
+    Ok(())
+}
+#[tauri::command]
 fn open_exports_dir() -> Result<(), String> {
     let dir = dirs::download_dir().unwrap_or(game_root()?.join("exports"));
     open_target(&s(&dir));
@@ -3391,7 +3400,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_versions, list_instances, create_instance, delete_instance, instance_list_dir,
             instance_delete, instance_toggle_mod, instance_import, instance_identify, instance_worlds, instance_top, instance_updates, instance_update, loader_versions, instance_change,
-            instance_read_image, instance_read_log, instance_set_settings, instance_export, open_exports_dir,
+            instance_read_image, instance_read_log, instance_set_settings, instance_export, open_exports_dir, instance_open_dir,
             fetch_instance_icon, open_url, quit_app, launch, stop_instance, instance_pack_update, modrinth_update_pack, instance_rename, instance_set_detached, instance_packs, instance_set_pack, modrinth_search, modrinth_versions, modrinth_install,
             modrinth_install_project, ms_client_ready, ms_begin_login, ms_poll_login, reset_launcher, list_accounts,
             set_active_account, remove_account, add_offline_account, ely_login, java_list,
