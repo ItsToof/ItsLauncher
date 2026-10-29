@@ -35,7 +35,7 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
 
 .rail-btn:hover, .tabs button:hover, .manage-tab:hover, .pop-item:hover, .pick-row:hover, .select-btn:hover, .card:not(.section):hover, .ver:hover, .fm-row:hover, .upd-row:hover, .isel-row:hover, .select-opt:hover { background: var(--surface2); }
 .seg button:hover { color: var(--text); }
-.pop-item.on, .acc.selected, .card.selected, .select.open .select-btn { border-color: color-mix(in srgb, var(--text) 30%, var(--border)); outline: none; }
+.acc.selected, .card.selected, .select.open .select-btn { border-color: color-mix(in srgb, var(--text) 30%, var(--border)); outline: none; }
 .btn:focus-visible, .icon-btn:focus-visible, .rail-btn:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .icon-btn.danger:hover, .mini-btn:hover, .win-ctl .close:hover { color: var(--danger); }
 .mini-btn.link:hover { color: var(--text); }
@@ -68,7 +68,6 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
 .rail > * { flex-shrink: 0; }
 .rail > .spacer { flex-shrink: 1; }
 .rail-btn { position: relative; padding: 0; width: 48px; height: 48px; border-radius: var(--r); border: 1px solid transparent; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: color .2s, border-color .2s, box-shadow .2s, background .2s; }
-.rail-btn.active { color: var(--accent); }
 
 .rail-btn::after { content: attr(data-tip); position: absolute; left: 62px; top: 50%; transform: translate(-6px, -50%); background: var(--surface2); color: var(--text); padding: 6px 10px; border-radius: var(--r); font-size: 12px; font-weight: 700; white-space: nowrap; opacity: 0; pointer-events: none; box-shadow: var(--shadow); transition: opacity .15s, transform .15s var(--ease); z-index: 60; }
 .rail-btn:hover::after { opacity: 1; transform: translate(0, -50%); }
@@ -129,7 +128,7 @@ fieldset.plain:disabled { opacity: .45; pointer-events: none; }
 .select-list { max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; padding: 4px; }
 .select-opt { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border: 0; border-radius: var(--r); background: transparent; font-size: 14px; font-weight: 600; cursor: pointer; text-align: left; transition: background .15s, color .15s, padding .2s; }
 .select-opt:hover { background: var(--surface2); }
-.select-opt.on { background: var(--surface2); }
+.select-opt.on { background: var(--accent); color: var(--accent-fg); }
 
 .card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px; transition: border-color .2s; }
 button.card { text-align: left; cursor: pointer; font: inherit; color: inherit; }
@@ -181,7 +180,7 @@ button.card { text-align: left; cursor: pointer; font: inherit; color: inherit; 
 .pop-label { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
 .pop-list { display: flex; flex-direction: column; gap: 4px; max-height: 190px; overflow-y: auto; }
 .pop-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r); border: 1px solid transparent; cursor: pointer; font-size: 14px; font-weight: 600; animation: fadeUp .3s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms); transition: border-color .2s, box-shadow .2s, background .2s; }
-.pop-item.on { background: var(--surface2); }
+.pop-item.on { background: var(--accent); color: var(--accent-fg); }
 .avatar { border-radius: var(--r); overflow: hidden; flex-shrink: 0; display: grid; place-items: center; color: #fff; font-weight: 800; background: #5b6472; }
 .avatar.ely { background: #1f9d6e; }
 .avatar canvas { width: 100%; height: 100%; image-rendering: pixelated; }
@@ -192,7 +191,7 @@ button.card { text-align: left; cursor: pointer; font: inherit; color: inherit; 
 .manage-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
 .manage-tab { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r); border: 1px solid transparent; background: transparent; color: var(--muted); font-weight: 600; font-size: 13px; cursor: pointer; transition: color .2s, border-color .2s, box-shadow .2s, background .2s; }
 .manage-tab.folder { margin-left: auto; }
-.manage-tab.active { background: var(--surface2); color: var(--text); }
+.manage-tab.active { background: var(--accent); color: var(--accent-fg); }
 .manage-body > * { flex-shrink: 0; }
 .manage-body { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 14px 14px; animation: fadeUp .3s var(--ease); display: flex; flex-direction: column; gap: 12px; }
 .content-bar { display: flex; align-items: center; gap: 10px; }
@@ -225,7 +224,7 @@ button.card { text-align: left; cursor: pointer; font: inherit; color: inherit; 
 .settings { display: grid; gap: 22px; }
 .tabs { top: 28px; display: flex; flex-direction: column; gap: 6px; }
 .tabs button { display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 14px; border: 1px solid transparent; border-radius: var(--r); background: transparent; color: var(--muted); font-weight: 700; font-size: 14px; cursor: pointer; transition: color .2s, border-color .2s, box-shadow .2s, background .2s; }
-.tabs button.on { background: var(--surface2); color: var(--text); }
+.tabs button.on { background: var(--accent); color: var(--accent-fg); }
 .content:has(.settings) { padding-bottom: 28px; }
 .tab-body { min-width: 0; }
 .group-title { margin: 18px 0 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
@@ -338,7 +337,7 @@ button.card { text-align: left; cursor: pointer; font: inherit; color: inherit; 
 .isel-pop { position: absolute; bottom: calc(100% + 10px); left: 0; width: 310px; max-height: 50vh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: 8px; transform-origin: bottom left; }
 .isel-row { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: 0; border-radius: var(--r); background: transparent; cursor: pointer; text-align: left; animation: fadeUp .2s var(--ease) both; animation-delay: calc(var(--i, 0) * 30ms); transition: background .15s; }
 .isel-row:hover { background: var(--surface2); }
-.isel-row.on { background: var(--surface2); }
+.isel-row.on { background: var(--accent); color: var(--accent-fg); }
 
 .code { font-size: 40px; font-weight: 800; letter-spacing: .18em; text-align: center; padding: 18px; margin: 14px 0; border-radius: var(--r); background: var(--bg); border: 2px dashed var(--accent); color: var(--accent); animation: pop .4s var(--spring); user-select: text; }
 .waiting { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; color: var(--muted); font-size: 13px; }
@@ -487,8 +486,6 @@ html[data-motion="off"].theme-fade *, html[data-motion="off"].theme-fade *::befo
 .inst::before { display: none; }
 .inst { padding-left: 14px; }
 
-.rail-btn.active::before { content: ""; position: absolute; left: -12px; top: 50%; width: 4px; height: 24px; border-radius: 0 4px 4px 0; background: var(--accent); transform: translateY(-50%); animation: railBar .3s var(--ease) both; }
-@keyframes railBar { from { opacity: 0; transform: translateY(-50%) scaleY(.2); } }
 
 .pack-card.static { cursor: default; }
 
@@ -545,12 +542,12 @@ html[data-motion="off"].theme-fade *, html[data-motion="off"].theme-fade *::befo
 .card { animation: fade .2s ease both; animation-delay: 0s; }
 .pack-card:hover .pack-ico, .inst:hover .inst-icon { transform: none; }
 
-.rail-btn.active { background: var(--surface2); color: var(--text); }
+.rail-btn.active { background: var(--accent); color: var(--accent-fg); }
 
 button.card, .game-card { border-radius: var(--r); }
 .activity, .activity-now, .select-pop, .facet-pop { border-radius: var(--r); }
 .btn { white-space: nowrap; }
-.seg button.on { background: var(--border); color: var(--text); }
+.seg button.on { background: var(--accent); color: var(--accent-fg); }
 .btn.sm { padding: 6px 11px; }
 .play-dock { padding: 14px 44px; font-size: 18px; }
 .chips { flex-wrap: wrap; }
